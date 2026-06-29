@@ -1,12 +1,15 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { validateEnv } from "@/lib/env";
+import { getActiveSport } from "@/core/sport";
 
 validateEnv();
 
+const sport = getActiveSport();
+
 export const metadata: Metadata = {
   title: "CrossFactor AI",
-  description: "AIによる競馬予測サービス",
+  description: sport.labels.serviceName,
 };
 
 export const viewport: Viewport = {

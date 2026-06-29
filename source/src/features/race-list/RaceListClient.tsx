@@ -7,15 +7,21 @@ import type { UiState } from "@/types/user";
 import type { GatingPolicy } from "@/features/plan-gating/policy";
 import { RaceCard } from "./RaceCard";
 import { UpgradeCta } from "@/features/plan-gating/UpgradeCta";
+import { getActiveSport } from "@/core/sport";
 
-const VENUE_ORDER = [
-  // 競馬
+const KEIBA_VENUE_ORDER = [
   "中山", "阪神", "中京", "東京", "京都", "福島", "新潟", "小倉", "札幌", "函館",
-  // 競艇
+];
+
+const KYOTEI_VENUE_ORDER = [
   "桐生", "戸田", "江戸川", "平和島", "多摩川", "浜名湖", "蒲郡", "常滑", "津",
   "三国", "びわこ", "住之江", "尼崎", "鳴門", "丸亀", "児島", "宮島", "徳山",
-  "下関", "若松", "芦屋", "福岡", "佐賀", "大村"
+  "下関", "若松", "芦屋", "福岡", "佐賀", "大村",
 ];
+
+const sport = getActiveSport();
+const VENUE_ORDER =
+  sport.id === "kyotei" ? KYOTEI_VENUE_ORDER : KEIBA_VENUE_ORDER;
 
 interface Props {
   races: EventSummary[];

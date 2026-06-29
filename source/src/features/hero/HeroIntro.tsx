@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/Button";
 import type { UiState } from "@/types/user";
+import { getActiveSport } from "@/core/sport";
 
 interface Props {
   uiState: UiState;
@@ -9,8 +10,11 @@ interface Props {
   sampleRaceId?: string;
 }
 
+const sport = getActiveSport();
+
 // サンプル閲覧用のレースID。モックデータに存在するIDを指定する
-const DEFAULT_SAMPLE_RACE_ID = "race-nakayama-11r";
+const DEFAULT_SAMPLE_RACE_ID =
+  sport.id === "kyotei" ? "race-heiwajima-1r" : "race-nakayama-11r";
 
 /**
  * 主 CTA のラベルと遷移先を UiState から決定する。
@@ -55,7 +59,7 @@ export function HeroIntro({
             CrossFactor AIとは
           </h2>
           <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-gray-600 md:text-base">
-            {"レース映像データとAI分析をもとに、\n勝率と期待値を算出。\n“どの馬を買うべきか”を一瞬で判断できる競馬AIサービスです。"}
+            {sport.labels.heroDescription}
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3">
@@ -73,7 +77,7 @@ export function HeroIntro({
         <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-gray-100 md:aspect-auto md:min-h-[220px]">
           <Image
             src="/images/hero-race.png"
-            alt="競馬のレースイメージ"
+            alt={sport.labels.heroImageAlt}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             priority

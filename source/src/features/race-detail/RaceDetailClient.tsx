@@ -7,12 +7,15 @@ import type { GatingPolicy } from "@/features/plan-gating/policy";
 import type { UiState } from "@/types/user";
 import { AiPredictionSection } from "./AiPredictionSection";
 import { EntriesTable } from "./EntriesTable";
+import { getActiveSport } from "@/core/sport";
 
 interface Props {
   race: RaceEvent;
   policy: GatingPolicy;
   uiState: UiState;
 }
+
+const sport = getActiveSport();
 
 /** 未ログインユーザー向け CTA セクション（Figma D-3） */
 function GuestCtaSection() {
@@ -41,7 +44,7 @@ function GuestCtaSection() {
         <ul className="space-y-1 text-sm text-gray-600">
           <li className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-            全馬の勝率 / 期待値
+            {sport.labels.guestUnlockSummary}
           </li>
           <li className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />

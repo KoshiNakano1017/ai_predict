@@ -3,26 +3,29 @@
 import { Card } from "@/components/Card";
 import { Badge } from "@/components/Badge";
 import { Button } from "@/components/Button";
+import { getActiveSport } from "@/core/sport";
 
 interface Props {
   onCheckout: (billingCycle: "monthly" | "annual") => void;
   loading?: boolean;
 }
 
+const sport = getActiveSport();
+
 const FREE_FEATURES = [
   "1日1レース",
-  "勝率ランキング（全頭）ソート可能",
-  "期待値ランキング（全頭）ソート可能",
-  "詳細理由（全頭）",
+  `勝率ランキング（${sport.labels.allEntries}）ソート可能`,
+  `期待値ランキング（${sport.labels.allEntries}）ソート可能`,
+  `詳細理由（${sport.labels.allEntries}）`,
   "レース評価（A / B / C）",
 ];
 
 const PRO_FEATURES = [
-  "勝率ランキング（全頭・ソート可能）",
-  "期待値ランキング（全頭・ソート可能）",
-  "詳細理由（全頭）",
-  "危険な人気馬",
-  "穴馬",
+  `勝率ランキング（${sport.labels.allEntries}・ソート可能）`,
+  `期待値ランキング（${sport.labels.allEntries}・ソート可能）`,
+  `詳細理由（${sport.labels.allEntries}）`,
+  sport.labels.riskyTitle,
+  sport.labels.longshotTitle,
   "レース評価（A / B / C）",
 ];
 

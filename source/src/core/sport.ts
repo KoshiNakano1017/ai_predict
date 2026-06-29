@@ -1,8 +1,8 @@
 /**
  * アクティブなスポーツプロファイルの解決。
  *
- * `NEXT_PUBLIC_SPORT` 環境変数で切り替える（既定は競馬）。
- * 競艇デモを公開する場合は NEXT_PUBLIC_SPORT=kyotei を設定する。
+ * `NEXT_PUBLIC_SPORT` 環境変数で切り替える（既定は競艇）。
+ * 競馬に戻す場合は NEXT_PUBLIC_SPORT=keiba を設定する。
  */
 import type { SportId, SportProfile } from "./sport-profile";
 import { keibaSport } from "./sports/keiba";
@@ -15,7 +15,7 @@ const SPORTS: Record<SportId, SportProfile> = {
   kyotei: kyoteiSport,
 };
 
-const DEFAULT_SPORT: SportId = "keiba";
+const DEFAULT_SPORT: SportId = "kyotei";
 
 /** 現在のアクティブスポーツプロファイルを返す。 */
 export function getActiveSport(): SportProfile {

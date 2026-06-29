@@ -26,6 +26,12 @@ export const keibaSport: SportProfile = {
     longshotTitle: "高期待値穴馬",
     recommended: "注目",
     notRecommended: "見送り",
+    tagline: "1秒で買う馬を判断できる競馬AI",
+    heroDescription:
+      "レース映像データとAI分析をもとに、\n勝率と期待値を算出。\n「どの馬を買うべきか」を一瞬で判断できる競馬AIサービスです。",
+    heroImageAlt: "競馬のレースイメージ",
+    allEntries: "全頭",
+    guestUnlockSummary: "全馬の勝率 / 期待値",
   },
   ratings: {
     star: { icon: "★", label: "本命候補" },

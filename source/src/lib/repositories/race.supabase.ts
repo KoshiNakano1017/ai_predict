@@ -15,6 +15,9 @@ import type {
   Longshot,
 } from "@/types/race";
 import { createClient } from "@/lib/supabase/server";
+import { getActiveSport } from "@/core/sport";
+
+const sport = getActiveSport();
 
 // ──────────────────────────────────────────────────────────────────────────────
 // DB 行型 (003_create_races_entries.sql の列に対応)
@@ -269,7 +272,7 @@ export class SupabaseRaceRepository implements RaceRepository {
           venue: meta.venue,
           eventNumber: meta.eventNumber,
           name: e.horse_name ?? "",
-          reason: e.ai_comment ?? "期待値が低い人気馬",
+          reason: e.ai_comment ?? sport.ratings.caution.label,
         });
       }
       if (e.star_rating === "◆") {

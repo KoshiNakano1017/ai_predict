@@ -6,11 +6,14 @@ import { Button } from "@/components/Button";
 import { Card } from "@/components/Card";
 import { createClient } from "@/lib/supabase/browser";
 import { logger } from "@/lib/logger";
+import { getActiveSport } from "@/core/sport";
 
 interface Props {
   mode: "signup" | "login";
   returnTo?: string;
 }
+
+const sport = getActiveSport();
 
 export function AuthForm({ mode, returnTo }: Props) {
   const router = useRouter();
@@ -21,7 +24,7 @@ export function AuthForm({ mode, returnTo }: Props) {
 
   const isSignup = mode === "signup";
   const title = isSignup ? "無料で始める" : "ログイン";
-  const subtitle = isSignup ? "1秒で買う馬を判断できる競馬AI" : null;
+  const subtitle = isSignup ? sport.labels.tagline : null;
   const submitLabel = "ログインリンクを送信";
   const altText = isSignup ? "すでにアカウントをお持ちですか？" : "アカウントをお持ちでないですか？";
   const altLink = isSignup ? "/login" : "/signup";

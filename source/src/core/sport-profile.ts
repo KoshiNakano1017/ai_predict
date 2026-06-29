@@ -53,6 +53,16 @@ export interface SportLabels {
   recommended: string;
   /** 「見送り」バッジ。 */
   notRecommended: string;
+  /** 認証画面・ヒーローのキャッチコピー。 */
+  tagline: string;
+  /** ヒーローセクションの説明文。 */
+  heroDescription: string;
+  /** ヒーロー画像の alt テキスト。 */
+  heroImageAlt: string;
+  /** 料金プラン等の「全○」表記（例: 全頭 / 全艇）。 */
+  allEntries: string;
+  /** 未ログイン CTA の解放機能説明。 */
+  guestUnlockSummary: string;
 }
 
 export interface SportProfile {

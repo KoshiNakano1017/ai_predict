@@ -3,6 +3,7 @@
 import { useTransition, useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { formatJpDate } from "@/lib/date";
+import { getActiveSport } from "@/core/sport";
 
 interface Props {
   /** 表示中の日付 (YYYY-MM-DD)。サーバーで決定された値を渡す */
@@ -12,6 +13,8 @@ interface Props {
   /** 将来: ピッカー等を開くトリガー。未指定ならネイティブの代わりにカスタムカレンダーピッカーを利用 */
   onOpenPicker?: () => void;
 }
+
+const sport = getActiveSport();
 
 /**
  * トップページ用の日付選択欄。
@@ -182,11 +185,13 @@ export function DateSelector({
                 const dateStr = `${yearStr}-${monthStr}-${dayStr}`;
                 const isSelected = dateStr === value;
                 
-                // 過去のデータがあるか（DB依存）、または未来の中央競馬（土日）か
+                // 過去のデータがあるか（DB依存）、または将来の開催予定日
                 const dateObj = new Date(viewYear, viewMonth, day);
                 const isFuture = dateObj.getTime() > new Date().getTime();
                 const isWeekend = dateObj.getDay() === 0 || dateObj.getDay() === 6; // 0:日, 6:土
-                const isAvailable = availableDates?.includes(dateStr) || (isFuture && isWeekend);
+                const isFutureRaceDay =
+                  sport.id === "kyotei" ? isFuture : isFuture && isWeekend;
+                const isAvailable = availableDates?.includes(dateStr) || isFutureRaceDay;
 
                 const hasAvailableDates = availableDates && availableDates.length > 0;
                 // データが空の場合の安全弁、または有効な開催予定日

@@ -31,6 +31,12 @@ export const kyoteiSport: SportProfile = {
     longshotTitle: "高期待値の穴選手",
     recommended: "勝負",
     notRecommended: "見送り",
+    tagline: "1秒で買う艇を判断できるボートレースAI",
+    heroDescription:
+      "レース映像データとAI分析をもとに、\n勝率と期待値を算出。\n「どの艇を買うべきか」を一瞬で判断できるボートレースAIサービスです。",
+    heroImageAlt: "ボートレースのレースイメージ",
+    allEntries: "全艇",
+    guestUnlockSummary: "全艇の勝率 / 期待値",
   },
   ratings: {
     star: { icon: "★", label: "本命候補" },

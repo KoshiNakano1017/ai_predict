@@ -1,6 +1,6 @@
 # CrossFactor AI Web Frontend
 
-CrossFactor AI 競馬予測Webサービスのフロントエンドです。
+CrossFactor AI 競艇（ボートレース）予測Webサービスのフロントエンドです。
 
 ## 技術スタック
 
@@ -23,7 +23,7 @@ CrossFactor AI 競馬予測Webサービスのフロントエンドです。
 ### インストール
 
 ```bash
-cd keiba/source
+cd source
 npm install
 ```
 
@@ -43,6 +43,8 @@ cp .env.example .env.local
 | `STRIPE_PRICE_ID` | プロプランの Stripe Price ID | ✓ |
 | `STRIPE_WEBHOOK_SECRET` | Stripe Webhook 署名シークレット | ✓ |
 | `NEXT_PUBLIC_APP_URL` | アプリの公開 URL | — |
+| `NEXT_PUBLIC_SPORT` | 競技種別 (`kyotei` / `keiba`) | — |
+| `NEXT_PUBLIC_USE_REAL_DATA` | 実データ / モック切替 | — |
 
 > 環境変数が未設定の場合、起動時にコンソールへ warning が出力されます。
 
