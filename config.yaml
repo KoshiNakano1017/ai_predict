@@ -1,0 +1,55 @@
+app:
+  timezone: Asia/Tokyo
+  environment: production
+
+sqlite:
+  # CrossFactor SQLite のファイルパス。実環境に合わせて変更すること。
+  # 実ファイル名・パスは §17.1 の確認事項で確定予定。
+  # 暫定: JRA 公式スクレデータから生成した mock DB を指している。
+  # CrossFactor 受領後は本物のファイルに切り替える。
+  path: "C:/CrossFactor/data/mock_crossfactor.db"
+  timeout_sec: 30
+  retry_count: 3
+  retry_interval_sec: 10
+
+batch:
+  run_dir: "C:\\keiba-ai\\runs"
+  log_dir: "C:\\keiba-ai\\logs"
+  checkpoint_file: "C:\\keiba-ai\\state\\checkpoint.json"
+  intermediate_retention_days: 7
+
+supabase:
+  url_env: SUPABASE_URL
+  key_env: SUPABASE_SERVICE_ROLE_KEY
+  retry_count: 3
+  retry_intervals_sec: [5, 15, 30]
+
+mail:
+  smtp_host_env: SMTP_HOST
+  smtp_port_env: SMTP_PORT
+  smtp_port_default: 587
+  username_env: SMTP_USER
+  password_env: SMTP_PASSWORD
+  from_env: MAIL_FROM
+  to: []
+
+inference:
+  model_dir: "C:\\keiba-ai\\inference\\models"
+  win_model: "lgbm_win_v1.pkl"
+  top2_model: "lgbm_top2_v1.pkl"
+  top3_model: "lgbm_top3_v1.pkl"
+  model_version: "v1.0.0"         # 環境変数 MODEL_VERSION で上書き可
+  # 期待値しきい値: star_rating 割り当てに使用
+  star_ev_threshold: 1.05     # ★ 基準
+  triangle_ev_threshold: 1.02 # ▲ 基準
+  longshot_popularity_rank: 5 # 穴馬の最低人気順位
+  risky_favorite_rank: 3      # 危険人気馬の最大人気順位
+
+# VM 内 PostgreSQL (AI用)
+# 環境変数 AI_DB_* で上書き可。本番では .env に記載する。
+vm_db:
+  host: "localhost"
+  port: 5432
+  dbname: "keiba_ai"
+  user: "ai_runner"
+  password: ""   # 本番値は AI_DB_PASSWORD 環境変数で設定

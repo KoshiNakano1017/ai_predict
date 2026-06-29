@@ -1,0 +1,38 @@
+.venv/
+.env
+.env.local
+__pycache__/
+*.pyc
+*.pyo
+runs/
+logs/
+state/
+# モデルファイルと中間データは GCS にバックアップするため Git 管理外
+inference/models/*.pkl
+*.parquet
+
+# エディタ・IDE 固有設定
+.cursor/
+.vscode/
+.idea/
+
+# ローカル作業用ディレクトリ
+backup/
+
+# スクレイピング生 HTML / CSV（再取得可能、毎日変動するためコミット不要）
+scripts/raw_html/
+scripts/data/
+
+# パッケージマネージャ・テスト系のログ
+npm-install.log
+*.log
+.pytest_cache/
+
+# 秘密情報ファイル
+*.secrets
+*.secrets.txt
+.keiba-vm-secrets.txt
+*-credentials.json
+*-service-account*.json
+
+.vercel

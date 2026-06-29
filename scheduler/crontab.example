@@ -1,0 +1,44 @@
+# =============================================================
+# CrossFactor AI バッチ crontab（VM 用）
+# 適用方法: crontab -e でこの内容を貼り付ける
+#            または: crontab /opt/keiba-ai/scheduler/crontab.example
+#
+# 前提:
+#   PROJECT_DIR=/opt/keiba-ai
+#   VENV_DIR=/opt/keiba-ai/.venv
+#   .env ファイルが PROJECT_DIR に配置済み
+# =============================================================
+
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PROJECT_DIR=/opt/keiba-ai
+VENV_PYTHON=/opt/keiba-ai/.venv/bin/python
+
+# ──────────────────────────────────────
+# daily_evening: 毎日 21:00 JST (= 12:00 UTC)
+# 翌日レースの基本情報・特徴量生成・推論
+# ──────────────────────────────────────
+0 12 * * * cd ${PROJECT_DIR} && ${VENV_PYTHON} batch/run_pipeline_vm.py --mode daily_evening >> logs/cron_daily_evening.log 2>&1
+
+# ──────────────────────────────────────
+# race_day_morning: 開催日の 8:00 JST (= 23:00 UTC 前日)
+# 当日レース情報の更新・オッズ最新化
+# ──────────────────────────────────────
+0 23 * * * cd ${PROJECT_DIR} && ${VENV_PYTHON} batch/run_pipeline_vm.py --mode race_day_morning >> logs/cron_race_day_morning.log 2>&1
+
+# ──────────────────────────────────────
+# pre_race: 毎日 10:00 JST (= 01:00 UTC)
+# 発走前オッズ確定版での推論更新
+# ──────────────────────────────────────
+0 1 * * * cd ${PROJECT_DIR} && ${VENV_PYTHON} batch/run_pipeline_vm.py --mode pre_race >> logs/cron_pre_race.log 2>&1
+
+# ──────────────────────────────────────
+# pg_backup: 毎日 03:00 UTC
+# PostgreSQL dump → GCS
+# ──────────────────────────────────────
+0 3 * * * cd ${PROJECT_DIR} && bash scripts/backup_postgres.sh >> logs/cron_backup.log 2>&1
+
+# ──────────────────────────────────────
+# 古い中間ファイル削除: 毎週月曜 04:00 UTC
+# ──────────────────────────────────────
+0 4 * * 1 find ${PROJECT_DIR}/runs -mindepth 1 -maxdepth 1 -type d -mtime +7 -exec rm -rf {} \; >> logs/cron_cleanup.log 2>&1

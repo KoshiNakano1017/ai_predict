@@ -1,0 +1,10 @@
+[Unit]
+Description=CrossFactor AI - race_day_morning timer (08:00 JST = 23:00 UTC 前日)
+
+[Timer]
+OnCalendar=*-*-* 23:00:00 UTC
+Persistent=true
+RandomizedDelaySec=60
+
+[Install]
+WantedBy=timers.target

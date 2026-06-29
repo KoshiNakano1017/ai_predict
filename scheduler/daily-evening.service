@@ -1,0 +1,14 @@
+[Unit]
+Description=CrossFactor AI - daily_evening pipeline
+After=network.target postgresql.service
+Requires=postgresql.service
+
+[Service]
+Type=oneshot
+User=ubuntu
+WorkingDirectory=/opt/keiba-ai
+EnvironmentFile=/opt/keiba-ai/.env
+ExecStart=/opt/keiba-ai/.venv/bin/python batch/run_pipeline_vm.py --mode daily_evening
+StandardOutput=append:/opt/keiba-ai/logs/daily_evening.log
+StandardError=append:/opt/keiba-ai/logs/daily_evening.log
+TimeoutStartSec=3600

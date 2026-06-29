@@ -1,0 +1,10 @@
+[Unit]
+Description=CrossFactor AI - daily_evening timer (21:00 JST = 12:00 UTC)
+
+[Timer]
+OnCalendar=*-*-* 12:00:00 UTC
+Persistent=true
+RandomizedDelaySec=60
+
+[Install]
+WantedBy=timers.target

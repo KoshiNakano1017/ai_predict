@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  /* モバイル横向き時などのフォント自動拡大を抑止 */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP",
+    sans-serif;
+  /* タップ時の青いハイライトを抑止（独自の hover/active 表現を使う） */
+  -webkit-tap-highlight-color: transparent;
+  /* 端末ごとの行間ブレを軽減 */
+  text-rendering: optimizeLegibility;
+}
+
+/*
+ * iOS Safari は input の font-size が 16px 未満だとフォーカス時に
+ * 自動ズームしてしまう。フォーム系要素は最低 16px を担保する。
+ * （見た目は Tailwind の text-sm を使いたい場面が多いため、
+ *  SP のみ 16px に底上げし、sm 以上では本来のサイズに戻す）
+ */
+@media (max-width: 639px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+/* 長い馬名などの折り返しを安定させる */
+.break-anywhere {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}

@@ -1,0 +1,12 @@
+[Unit]
+Description=CrossFactor AI - PostgreSQL daily backup to GCS
+
+[Service]
+Type=oneshot
+User=ubuntu
+WorkingDirectory=/opt/keiba-ai
+EnvironmentFile=/opt/keiba-ai/.env
+ExecStart=/bin/bash /opt/keiba-ai/scripts/backup_postgres.sh
+StandardOutput=append:/opt/keiba-ai/logs/pg_backup.log
+StandardError=append:/opt/keiba-ai/logs/pg_backup.log
+TimeoutStartSec=1800

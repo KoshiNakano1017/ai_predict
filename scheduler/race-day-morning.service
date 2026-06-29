@@ -1,0 +1,14 @@
+[Unit]
+Description=CrossFactor AI - race_day_morning pipeline
+After=network.target postgresql.service
+Requires=postgresql.service
+
+[Service]
+Type=oneshot
+User=ubuntu
+WorkingDirectory=/opt/keiba-ai
+EnvironmentFile=/opt/keiba-ai/.env
+ExecStart=/opt/keiba-ai/.venv/bin/python batch/run_pipeline_vm.py --mode race_day_morning
+StandardOutput=append:/opt/keiba-ai/logs/race_day_morning.log
+StandardError=append:/opt/keiba-ai/logs/race_day_morning.log
+TimeoutStartSec=3600
